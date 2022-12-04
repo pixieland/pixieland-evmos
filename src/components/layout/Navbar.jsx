@@ -39,9 +39,9 @@ export default function Navbar({ ethaddress, setETHAddress, setEthProvider, setC
             <li className="nav-item">
               <Link className="nav-link" aria-current="page" href="/marketplace">MARKETPLACE</Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link" aria-current="page" href="/addpixie">ADD PIXIE</Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link className="nav-link" aria-current="page" href="/gamestart">GAME</Link>
             </li>
