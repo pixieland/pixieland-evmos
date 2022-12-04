@@ -39,7 +39,7 @@ export default function Game({ level = (current_level || randomIndex(levels)) })
 
       <group>
         <Pixi pixi={player} position={[0, 2, 0]} />
-        <Pixidust pixi={player} position={[0, -25, 0]} />
+        <Pixidust pixi={player} position={[0, -10, 0]} />
       </group>
 
       <Stars radius={500} depth={10} count={1000} factor={1} />
