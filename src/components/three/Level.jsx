@@ -106,7 +106,7 @@ export default function Tube({ level = 1, speed = .1 }) {
             <Log image={image} offset={-tube_half} speed={speed} rotation={[-190, 31, 0]} />
 
             <BallRoller image={image} offset={-tube_half} speed={speed}
-                position={[-20, -35, -1990]} />
+                position={[-20, -20, -1990]} />
         </Physics>
     )
 }
@@ -141,19 +141,16 @@ export const BallRoller = ({ image, count = 20, offset, start = Array.from(Array
 
     useFrame(({ mouse, viewport }, elapsedTime) => {
         floor.current.position.z = THREE.MathUtils.lerp(floor.current.position.z, floor.current.position.z + 10, tube_speed)
+        //floor.current.rotation.y += 0.01
+
+        if (floor.current.position.z % 2 < .5) {
+            setBalls(Array.from(Array(count).keys()))
+        }
 
         if (floor.current.position.z > tube_half) {
             floor.current.position.z = offset
         }
-
     })
-
-    useEffect(() => {
-        const interval = setTimeout(() => {
-        setBalls(Array.from(Array(count).keys()))
-        }, 1000)
-        return () => clearTimeout(interval)
-    }, [balls])
 
     return (
         <group ref={floor} {...props}>
@@ -182,7 +179,7 @@ export const BallRoller = ({ image, count = 20, offset, start = Array.from(Array
                 <RigidBody
                     key={i}
                     colliders="ball"
-                    position={[i * 3, -5, 20]}
+                    position={[i * 3, 10, 10]}
                     angularDamping={i / (Math.random() * 10)}
                 >
                     <Sphere scale={[2,2,2]}>
