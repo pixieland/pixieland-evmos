@@ -4,11 +4,13 @@ import { ethers } from 'ethers'
 export default function Marketplace({ ethaddress, contractNFT }) {
   const [pixies, setPixies] = useState([]);
   const [urls, setURLS] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getNFTs = async () => {
       try{
-        const ps = await contractNFT.fetchItemsListed();
+        setLoading(true);
+        const ps = await contractNFT.fetchMarketItems();
         console.log(ps);
         setPixies(ps);
 
@@ -18,9 +20,11 @@ export default function Marketplace({ ethaddress, contractNFT }) {
           newurls.push(url);
         }
         setURLS(newurls);
+        setLoading(false);
       }
       catch(err) {
         console.error(err);
+        setLoading(false);
       }
     }
     if(contractNFT) getNFTs();
@@ -40,7 +44,8 @@ export default function Marketplace({ ethaddress, contractNFT }) {
     <div className="container">
       <h1>Marketplace</h1>
      
-      <div className='row mt-3'>
+      {!loading
+        ?<div className='row mt-3'>
         {pixies.map((p, i) => (
           <div className='col-3' key={i}>
             <div className="card">
@@ -55,6 +60,11 @@ export default function Marketplace({ ethaddress, contractNFT }) {
           </div>
         ))}
       </div>
+      : <div className="d-flex justify-content-center mt-5">
+      <div className="spinner-border text-danger" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>}
       
       
     </div>
